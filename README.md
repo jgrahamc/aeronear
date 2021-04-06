@@ -1,2 +1,3 @@
-# aeronear
-Small project that uses a Raspberry Pi to show near by aircraft
+# blagnac
+
+Raspberry Pi-based ambient device showing the nearest aircraft in real-time
