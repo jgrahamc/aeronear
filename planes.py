@@ -106,16 +106,16 @@ def calibrate_strip():
 
 # These are the GPIO pins to which the four coils are connected
 
-coilApin = 4 
-coilBpin = 17
-coilCpin = 27
-coilDpin = 22
+coil_A_pin = 4 
+coil_B_pin = 17
+coil_C_pin = 27
+coil_D_pin = 22
 
-# There are revolution steps of the motor in a complete revolution and
-# degree degrees per step
+# There are 'revolution' steps of the motor in a complete revolution
+# and steps_per_degree steps per degree
 
 revolution = 2038
-degree = 2038 / 360
+steps_per_degree = revolution / 360.0
 
 # This defines the sequence of coil activations for the stepper motor
 # and current_step contains the step that was laste used to move the
@@ -130,18 +130,18 @@ seq[3] = [True, False,False,True]
 
 current_step = 0
 
-GPIO.setup(coilApin, GPIO.OUT)
-GPIO.setup(coilBpin, GPIO.OUT)
-GPIO.setup(coilCpin, GPIO.OUT)
-GPIO.setup(coilDpin, GPIO.OUT)
+GPIO.setup(coil_A_pin, GPIO.OUT)
+GPIO.setup(coil_B_pin, GPIO.OUT)
+GPIO.setup(coil_C_pin, GPIO.OUT)
+GPIO.setup(coil_D_pin, GPIO.OUT)
 
 # motor_set_coils sets the coils on the stepper motor and is typically
 # used with seq[] above
 def motor_set_coils(a, b, c, d):
-    GPIO.output(coilApin, a)
-    GPIO.output(coilBpin, b)
-    GPIO.output(coilCpin, c)
-    GPIO.output(coilDpin, d)
+    GPIO.output(coil_A_pin, a)
+    GPIO.output(coil_B_pin, b)
+    GPIO.output(coil_C_pin, c)
+    GPIO.output(coil_D_pin, d)
 
 # motor_step moves the motor one step. The direction is determined by
 # the clockwise parameter (True for clockwise) and this function
@@ -190,7 +190,7 @@ accumulated_error = 0.0
 # steps needed and goes by the shortest route (clockwise or
 # anti-clockwise)
 def plane_track(trak):
-    d = trak * degree - position
+    d = trak * steps_per_degree - position
     delta = int(d)
     
     global accumulated_error
